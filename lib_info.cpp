@@ -13,11 +13,13 @@
 using namespace std;
 
 string sum_times(int artist, vector<vector<vector<string>>>& songs);
+string album_times(vector<vector<string>>& albumsData);
 
 string replace_underscore(string s) {
 	replace(s.begin(), s.end(), '_', ' '); // citation 1
 	return s;
 }
+
 int main(int argc, char* argv[]) {
 
 	if (argc < 2) {
@@ -90,8 +92,71 @@ int main(int argc, char* argv[]) {
 	// 4 : track number
 	//
 	// number of songs per artist: songs[artist].size()
+	
+	// alphabetize the artists
+	//sort(artists.begin(), artists.end());
 
-	for (int artist = 0 ; artist < (int)artists.size() ; artist++) {
+    // Print the library
+    for (int artistIndex = 0; artistIndex < (int)artists.size(); artistIndex++) {
+        cout << artists[artistIndex] << ": " << (int)songs[artistIndex].size() << ", " << sum_times(artistIndex, songs) << endl;
+		
+        for (const auto& song : songs[artistIndex]) {
+            string album = song[2];
+            if (find(albums.begin(), albums.end(), album) == albums.end()) {
+                albums.push_back(album);
+            }
+		}
+        sort(albums.begin(), albums.end());
+		
+		for (int album = 0 ; i < (int)albums.size() ; album++) {
+			//print album
+			for (int song = 0 ; song < songs[artistIndex].size() ; song++) {
+				if (abums[album] == songs[artistIndex][song][2])
+
+			}
+		}
+	}
+
+        // Sort albums for the current artist
+/*
+        vector<string> albums;
+        vector<vector<vector<string>>> albumsData;
+        for (const auto& song : songs[artistIndex]) {
+            string album = song[2];
+            if (find(albums.begin(), albums.end(), album) == albums.end()) {
+                albums.push_back(album);
+                albumsData.push_back(vector<vector<string>>());
+            }
+            int albumIndex = find(albums.begin(), albums.end(), album) - albums.begin();
+            albumsData[albumIndex].push_back(song);
+        }
+
+        sort(albums.begin(), albums.end());
+
+        for (int albumIndex = 0; albumIndex < (int)albums.size(); albumIndex++) {
+            //for(int i = 0 ; i < (int)albums.size() ; i ++) { 
+			cout << "        " << albums[albumIndex] << ": " << albumsData[albumIndex].size() << ", " << album_times(albumsData[albumIndex]) << endl;
+			//}
+            // Sort songs within the current album
+            sort(albumsData[albumIndex].begin(), albumsData[albumIndex].end(), [](const vector<string>& a, const vector<string>& b) {
+                return stoi(a[4]) < stoi(b[4]);
+            });
+
+            for (const auto& song : albumsData[albumIndex]) {
+                cout << "                " << song[4] << ". " << song[0] << ": " << song[1] << endl;
+            }
+        }
+    }
+
+*/
+	/*sort(artists.begin(), artists.end());
+	for (const auto& lexArtist : artists) {
+		for (int artist = 0; artist < (int)artists.size(); artist++) {
+			cout << lexArtist << ": " << (int)songs[artist].size() << ", " << sum_times(artist, songs) << endl; // ** The song count is incorrect **
+		}
+	}*/
+
+	/*for (int artist = 0 ; artist < (int)artists.size() ; artist++) {
 		//cout << "artist: " << artists[artist] << endl;
 		printf("%s: %d, %s\n",
 				artists[artist].c_str(), (int)songs[artist].size(), sum_times(artist, songs).c_str());
@@ -101,10 +166,40 @@ int main(int argc, char* argv[]) {
 				cout << songs[artist][song][data] << ' ';
 		}
 		cout << "\n\n";
-	}
+	}*/
 
 	return 0;
 }
 string sum_times(int artist, vector<vector<vector<string>>>& songs) {
-	return "[total time yippee!]";
+	/*int time = 0;
+
+	return "[total time yippee!]";*/
+
+	  int totalSeconds = 0;
+    for (const auto& song : songs[artist]) {
+        // Assuming song[1] is the time in "MM:SS" format
+        stringstream timeStream(song[1]);
+        string minutes, seconds;
+        getline(timeStream, minutes, ':');
+        getline(timeStream, seconds);
+        totalSeconds += stoi(minutes) * 60 + stoi(seconds);
+    }
+    int minutes = totalSeconds / 60;
+    int seconds = totalSeconds % 60;
+    return to_string(minutes) + ":" + (seconds < 10 ? "0" : "") + to_string(seconds);
+}
+
+string album_times(vector<vector<string>>& albumsData) {
+    int totalSeconds = 0;
+    for (const auto& song : albumsData) {
+        // Assuming song[1] is the time in "MM:SS" format
+        stringstream timeStream(song[1]);
+        string minutes, seconds;
+        getline(timeStream, minutes, ':');
+        getline(timeStream, seconds);
+        totalSeconds += stoi(minutes) * 60 + stoi(seconds);
+    }
+    int minutes = totalSeconds / 60;
+    int seconds = totalSeconds % 60;
+    return to_string(minutes) + ":" + (seconds < 10 ? "0" : "") + to_string(seconds);
 }
