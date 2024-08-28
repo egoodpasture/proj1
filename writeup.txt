@@ -1,0 +1,14 @@
+Travis Tyimok and Eric Goodpasture
+TripleTx3     and egoodpasture
+https://github.com/egoodpasture/proj1
+
+Compiling: using the included Makefile (works the same as previously provided class Makefiles)
+	make - compiles lib_info.cpp 
+	make test - compiles and runs ./gradeall
+	make clean - removes lib_info executable
+
+Eric- created the library storage system
+Travis - created the logic for printing
+
+These were our primary focuses but we both worked on both aspects of the project especially when the other
+partner got stuck.

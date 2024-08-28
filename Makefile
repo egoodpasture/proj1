@@ -13,6 +13,6 @@ clean:
 test:		test-output
 
 test-output:	lib_info
-	@echo Testing Small.txt...
-	./lib_info Small.txt
+	@echo Running all gradescripts...
+	./gradeall
 
