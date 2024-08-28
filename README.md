@@ -4,7 +4,7 @@ Pulling:
 Pushing:
 	git add <file>
 	git commit -m 'your message'
-	git push -u origin master
+	git push -u origin main
 
 Misc:
 	git stash
