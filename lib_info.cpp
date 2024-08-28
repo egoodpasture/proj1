@@ -4,6 +4,7 @@
 // Citations:
 // 1: https://bytes.com/topic/c/140538-how-replace-underscore-space-std-string
 // 2: ChatGPT - Iterators and converting iterators to integers
+// 3: Lambda Expressions: https://www.geeksforgeeks.org/lambda-expression-in-c/
 #include<iostream>
 #include<fstream>
 #include<vector>
@@ -124,9 +125,9 @@ int main(int argc, char* argv[]) {
 			cout << "        " << albums[album] << ": " << album_count(albums[album], artistIndex, songs) 
 				<< ", " << album_times(albums[album], artistIndex, songs) << endl;
 			
-			// Sort the songs based on their track listing --------> CITATION NEEDED TRAVIS <-----------
+			// Sort the songs based on their track listing 
 			sort(songs[artistIndex].begin(), songs[artistIndex].end(),
-					[] (const vector<string>& a, const vector<string>& b) {return stoi(a[4]) < stoi(b[4]);});
+					[] (const vector<string>& a, const vector<string>& b) {return stoi(a[4]) < stoi(b[4]);}); // Citation 3
 
 			// Begin printing tracks
 			for (int song = 0 ; song < (int)songs[artistIndex].size() ; song++) {
